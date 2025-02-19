@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "@/components/styles/QuestionBox.module.css";
+import countryList from "@/utils/countries"; // Import country list
 
 interface Question {
   id: number;
   text: string;
-  options: string[];
+  options?: string[]; // Optional for non-multiple-choice questions
+  type?: "dropdown" | "radio"; // ✅ Restricting to allowed values
 }
+
 
 interface QuestionBoxProps {
   question: Question;
@@ -25,29 +28,23 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [otherInput, setOtherInput] = useState<string>("");
+  const [filteredCountries, setFilteredCountries] = useState(countryList);
   const router = useRouter();
 
-  // Load previously selected answer from localStorage
+  // Load stored answer from localStorage when switching questions
   useEffect(() => {
     const storedAnswers = JSON.parse(localStorage.getItem("surveyResults") || "{}");
-    if (storedAnswers[question.id]) {
-      setSelectedOption(storedAnswers[question.id]);
-    } else {
-      setSelectedOption(""); // Reset when switching questions
-    }
+    setSelectedOption(storedAnswers[question.id] || "");
+    setOtherInput(storedAnswers[`${question.id}-other`] || ""); // Load "Other" input
   }, [question.id]);
-
-  const handleOptionChange = (option: string) => {
-    setSelectedOption(option);
-    if (option !== "Other") {
-      setOtherInput("");
-    }
-  };
 
   // Save answer to localStorage
   const saveAnswer = () => {
     const storedAnswers = JSON.parse(localStorage.getItem("surveyResults") || "{}");
     storedAnswers[question.id] = selectedOption === "Other" ? otherInput : selectedOption;
+    if (selectedOption === "Other") {
+      storedAnswers[`${question.id}-other`] = otherInput;
+    }
     localStorage.setItem("surveyResults", JSON.stringify(storedAnswers));
   };
 
@@ -61,39 +58,73 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
     router.push("/results"); // Redirect to Results Page
   };
 
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSelectedOption(value);
+    setFilteredCountries(
+      countryList.filter((country) =>
+        country.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  };
+
   return (
     <div className={styles.box}>
       {/* Question Text */}
       <h2 className={styles.question}>{question.text}</h2>
 
-      {/* Options */}
-      <ul className={styles.options}>
-        {question.options.map((option, index) => (
-          <li key={index}>
-            <label>
-              <input
-                type="radio"
-                name={`question-${question.id}`}
-                value={option}
-                onChange={() => handleOptionChange(option)}
-                checked={selectedOption === option}
-              />
-              {option}
-            </label>
+      {/* Country Dropdown for Last Question */}
+      {question.type === "dropdown" ? (
+        <>
+          <input
+            type="text"
+            className={styles.searchInput}
+            placeholder="Type to search country..."
+            value={selectedOption}
+            onChange={handleSearch}
+          />
+          <select
+            className={styles.dropdown}
+            onChange={(e) => setSelectedOption(e.target.value)}
+            value={selectedOption}
+          >
+            {filteredCountries.map((country, index) => (
+              <option key={index} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+        </>
+      ) : (
+        // Multiple-choice options
+        <ul className={styles.options}>
+          {question.options?.map((option, index) => (
+            <li key={index}>
+              <label>
+                <input
+                  type="radio"
+                  name={`question-${question.id}`}
+                  value={option}
+                  onChange={() => setSelectedOption(option)}
+                  checked={selectedOption === option}
+                />
+                {option}
+              </label>
 
-            {/* Show input field if "Other" is selected */}
-            {selectedOption === option && option === "Other" && (
-              <input
-                type="text"
-                placeholder="Please specify..."
-                className={styles.otherInput}
-                value={otherInput}
-                onChange={(e) => setOtherInput(e.target.value)}
-              />
-            )}
-          </li>
-        ))}
-      </ul>
+              {/* Show text input when "Other" is selected */}
+              {selectedOption === "Other" && option === "Other" && (
+                <input
+                  type="text"
+                  className={styles.otherInput}
+                  placeholder="Please specify..."
+                  value={otherInput}
+                  onChange={(e) => setOtherInput(e.target.value)}
+                />
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
 
       {/* Navigation Buttons */}
       <div className={styles.navigation}>

@@ -75,3 +75,76 @@
   transform: scale(1.05);
   background: #0073e6;
 }
+
+
+/* ✅ Searchable input field */
+.searchInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* ✅ Dropdown list */
+.dropdown {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+}
+
+/* ✅ Dropdown text */
+.dropdown option {
+  background: #333;
+  color: white;
+}
+
+/* ✅ Input field for "Other" option */
+.otherInput {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  margin-top: 10px;
+}
+
+/* ✅ Searchable input field for country selection */
+.searchInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* ✅ Dropdown for country selection */
+.dropdown {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+}
+
+/* ✅ Dropdown text */
+.dropdown option {
+  background: #333;
+  color: white;
+}

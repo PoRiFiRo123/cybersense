@@ -1,72 +1,89 @@
-/* ✅ Full-page container */
+/* ✅ Full-page background with no scrolling */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    background: url('/images/survey-background.png') no-repeat center center;
-    background-size: cover;
-    overflow-y: auto; /* Scrollable if content is lengthy */
-  }
-  
-  /* ✅ Content area */
-  .content {
-    width: 60%;
-    margin-top: 120px; /* Leave space for the header */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* ✅ Page Title */
-  .pageTitle {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 30px;
-    color: white;
-  }
-  
-  /* ✅ Each Question Block */
-  .resultItem {
-    margin-bottom: 25px;
-    padding: 15px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  /* ✅ Question Title */
-  .questionTitle {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 10px;
-  }
-  
-  /* ✅ Answer Text */
-  .answerText {
-    font-size: 1.4rem;
-    color: #eeeeee;
-  }
-  
-  /* ✅ Generate Button */
-  .generateButton {
-    display: block;
-    margin: 30px auto;
-    padding: 15px 40px;
-    font-size: 1.5rem;
-    font-weight: bold;
-    background: white;
-    color: #003b6f;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background 0.3s ease;
-  }
-  
-  .generateButton:hover {
-    transform: scale(1.05);
-    background: #0073e6;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Ensures content starts below the header */
+  height: 100vh;
+  width: 100vw;
+  background: url('/images/survey-background.png') no-repeat center center;
+  background-size: cover;
+  overflow: hidden; /* ✅ Prevents full-page scrolling */
+}
+
+/* ✅ Centered Scrollable Content */
+.scrollableContent {
+  width: 60%;
+  max-height: 65vh; /* Limits height to prevent full-page scrolling */
+  overflow-y: auto; /* ✅ Enables scrolling only inside the container */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  margin: auto; /* ✅ Centers horizontally */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ✅ Left-aligns content inside the container */
+  scrollbar-width: none; /* ✅ Hides scrollbar in Firefox */
+  -ms-overflow-style: none; /* ✅ Hides scrollbar in IE/Edge */
+}
+
+/* ✅ Hide scrollbar in WebKit browsers */
+.scrollableContent::-webkit-scrollbar {
+  display: none;
+}
+
+/* ✅ Center-Aligned Page Title */
+.pageTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center; /* ✅ Center-aligned */
+  margin-bottom: 30px;
+  color: white;
+  width: 100%;
+}
+
+/* ✅ Each Question Block */
+.resultItem {
+  margin-bottom: 25px;
+  padding: 15px 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* ✅ Full-width separator */
+  width: 100%; /* ✅ Ensures separator spans the full width of the container */
+}
+
+/* ✅ Question Title */
+.questionTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+  text-align: left; /* ✅ Left-aligns question */
+}
+
+/* ✅ Answer Text */
+.answerText {
+  font-size: 1.4rem;
+  color: #eeeeee;
+  text-align: left; /* ✅ Left-aligns answers */
+}
+
+/* ✅ Generate Button */
+.generateButton {
+  display: block;
+  margin: 30px auto;
+  padding: 15px 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: white;
+  color: #003b6f;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.generateButton:hover {
+  transform: scale(1.05);
+  background: #0073e6;
+}

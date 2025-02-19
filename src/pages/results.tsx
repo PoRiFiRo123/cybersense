@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import styles from "@/styles/Results.module.css";
 
@@ -9,12 +8,11 @@ const questions = [
   { id: 2, text: "Who are your primary customers or target audience?" },
   { id: 3, text: "Which industry or market segment does your business operate in?" },
   { id: 4, text: "What types of sensitive data does your organization handle?" },
-  { id: 5, text: "What is your favorite hobby?" },
+  { id: 5, text: "Where are you located at?" }
 ];
 
 export default function Results() {
   const [surveyResults, setSurveyResults] = useState<Record<number, string>>({});
-  const router = useRouter();
 
   useEffect(() => {
     const storedResults = JSON.parse(localStorage.getItem("surveyResults") || "{}");
@@ -26,8 +24,9 @@ export default function Results() {
       {/* Header */}
       <Header />
 
-      <div className={styles.content}>
-        <h1 className={styles.pageTitle}>Survey Results</h1>
+      {/* Centered Scrollable Content Container */}
+      <div className={styles.scrollableContent}>
+        <h1 className={styles.pageTitle}>Survey Preview</h1> {/* ✅ Updated title */}
 
         {questions.map((question) => (
           <div key={question.id} className={styles.resultItem}>
