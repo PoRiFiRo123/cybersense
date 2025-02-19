@@ -1,0 +1,77 @@
+/* ✅ Dynamic Question Box */
+.box {
+  background: rgba(255, 255, 255, 0.1); /* Glass-like effect */
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px; /* Increased padding */
+  width: 50%; /* Fixed width */
+  min-height: 200px; /* Minimum height */
+  color: white;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ✅ Question styling */
+.question {
+  font-size: 2.5rem; /* Larger font size for the question */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* ✅ Options */
+.options {
+  list-style-type: none;
+  padding: 0;
+}
+
+.options li {
+  margin-bottom: 15px; /* Adjust spacing */
+}
+
+.options label {
+  font-size: 1.5rem; /* Increased font size for readability */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* ✅ Input field for "Other" option */
+.otherInput {
+  margin-top: 10px;
+  padding: 8px;
+  width: 100%;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* ✅ Navigation */
+.navigation {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  margin-top: auto; /* Push buttons to the bottom */
+}
+
+/* ✅ Next and Submit Buttons */
+.nextButton,
+.submitButton {
+  padding: 12px 30px;
+  font-size: 1.5rem;
+  background: white;
+  color: #003b6f;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.nextButton:hover,
+.submitButton:hover {
+  transform: scale(1.05);
+  background: #0073e6;
+}

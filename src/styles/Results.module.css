@@ -1,0 +1,72 @@
+/* ✅ Full-page container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background: url('/images/survey-background.png') no-repeat center center;
+    background-size: cover;
+    overflow-y: auto; /* Scrollable if content is lengthy */
+  }
+  
+  /* ✅ Content area */
+  .content {
+    width: 60%;
+    margin-top: 120px; /* Leave space for the header */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* ✅ Page Title */
+  .pageTitle {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+  }
+  
+  /* ✅ Each Question Block */
+  .resultItem {
+    margin-bottom: 25px;
+    padding: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* ✅ Question Title */
+  .questionTitle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  /* ✅ Answer Text */
+  .answerText {
+    font-size: 1.4rem;
+    color: #eeeeee;
+  }
+  
+  /* ✅ Generate Button */
+  .generateButton {
+    display: block;
+    margin: 30px auto;
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: white;
+    color: #003b6f;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .generateButton:hover {
+    transform: scale(1.05);
+    background: #0073e6;
+  }
+  
