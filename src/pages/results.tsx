@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import styles from "@/styles/Results.module.css";
+import { formatSurveyResponses } from "@/utils/formatResponse";
 
-// Define the same set of questions as in the survey page
 const questions = [
   { id: 1, text: "What products or services does your organization offer?" },
   { id: 2, text: "Who are your primary customers or target audience?" },
@@ -13,20 +14,32 @@ const questions = [
 
 export default function Results() {
   const [surveyResults, setSurveyResults] = useState<Record<number, string>>({});
+  const router = useRouter();
 
   useEffect(() => {
     const storedResults = JSON.parse(localStorage.getItem("surveyResults") || "{}");
     setSurveyResults(storedResults);
   }, []);
 
+  const handleGenerate = () => {
+    const formattedText = formatSurveyResponses(surveyResults, questions);
+    
+    localStorage.setItem("formattedSurvey", formattedText);
+    
+    setTimeout(() => {
+      router.push("/prompt"); // ✅ Navigate to Prompt Page after storage update
+    }, 200); // Small delay ensures data is saved before navigation
+  };
+
+  const handleBack = () => {
+    router.push("/survey"); // ✅ Go back to Question 1 in Survey
+  };
+
   return (
     <div className={styles.container}>
-      {/* Header */}
       <Header />
-
-      {/* Centered Scrollable Content Container */}
       <div className={styles.scrollableContent}>
-        <h1 className={styles.pageTitle}>Survey Preview</h1> {/* ✅ Updated title */}
+        <h1 className={styles.pageTitle}>Survey Preview</h1>
 
         {questions.map((question) => (
           <div key={question.id} className={styles.resultItem}>
@@ -35,10 +48,15 @@ export default function Results() {
           </div>
         ))}
 
-        {/* Generate Button */}
-        <button className={styles.generateButton} onClick={() => alert("Generating...")}>
-          Generate
-        </button>
+        {/* ✅ Buttons in the same row */}
+        <div className={styles.buttonContainer}>
+          <button className={styles.backButton} onClick={handleBack}>
+            Back
+          </button>
+          <button className={styles.generateButton} onClick={handleGenerate}>
+            Generate
+          </button>
+        </div>
       </div>
     </div>
   );

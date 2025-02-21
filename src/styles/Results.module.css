@@ -87,3 +87,50 @@
   transform: scale(1.05);
   background: #0073e6;
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between; /* ✅ Places buttons side by side */
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+}
+
+/* ✅ Matching dimensions for Back & Generate buttons */
+.backButton,
+.generateButton {
+  padding: 12px 30px;
+  font-size: 1.2rem;
+  width: 45%; /* ✅ Ensures buttons have equal width */
+  height: 50px; /* ✅ Same height for both */
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* ✅ Back Button */
+.backButton {
+  background: white;
+  color: #003b6f;
+  border: 2px solid #003b6f;
+}
+
+.backButton:hover {
+  transform: scale(1.05);
+  background: #ff4c4c;
+  color: white;
+}
+
+/* ✅ Generate Button */
+.generateButton {
+  background: white;
+  color: #003b6f;
+  border: 2px solid #003b6f;
+}
+
+.generateButton:hover {
+  transform: scale(1.05);
+  background: #0073e6;
+  color: white;
+}
