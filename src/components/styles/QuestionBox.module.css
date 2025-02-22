@@ -59,7 +59,8 @@
 
 /* ✅ Next and Submit Buttons */
 .nextButton,
-.submitButton {
+.submitButton,
+.prevButton {
   padding: 12px 30px;
   font-size: 1.5rem;
   background: white;
@@ -71,7 +72,8 @@
 }
 
 .nextButton:hover,
-.submitButton:hover {
+.submitButton:hover,
+.prevButton:hover {
   transform: scale(1.05);
   background: #0073e6;
 }

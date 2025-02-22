@@ -1,0 +1,16 @@
+.button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(to bottom, #fff8a3, #ffcc00);
+    transition: transform 0.2s ease, background 0.3s ease;
+  }
+  
+  .button:hover {
+    background: linear-gradient(to bottom, #ffeb3b, #ff9900);
+    transform: scale(1.05);
+  }
+  

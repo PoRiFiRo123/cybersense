@@ -1,21 +1,48 @@
-import Header from "@/components/Header";
-import CategoryButton from "@/components/CategoryButton";
+import React from "react";
 import styles from "@/styles/DetailedSurvey.module.css";
+import Header from "@/components/Header";
+import Link from "next/link";
 
-export default function DetailedSurvey() {
+const categories = [
+  { name: "Governance and Policies", link: "/detailed-survey/governance", img: "/icons/governance.svg" },
+  { name: "Technical", link: "/detailed-survey/technical", img: "/icons/technical.svg" },
+  { name: "Data Security", link: "/detailed-survey/data-security", img: "/icons/data-security.svg" },
+  { name: "Access Control", link: "/detailed-survey/access-control", img: "/icons/access-control.svg" },
+];
+
+const secondRowCategories = [
+  { name: "Threat Detection", link: "/detailed-survey/threat-detection", img: "/icons/threat-detection.svg" },
+  { name: "Training and Awareness", link: "/detailed-survey/training", img: "/icons/training.svg" },
+];
+
+const DetailedSurvey = () => {
   return (
-    <div className={styles.detailedSurveyContainer}>
+    <div className={styles.container}>
       <Header />
-      <h1 className={styles.title}>Select a Security Category</h1>
-
       <div className={styles.categoryGrid}>
-        <CategoryButton label="Governance and Policies" icon="/assets/governance.svg" route="/detailed-survey/governance" />
-        <CategoryButton label="Technical" icon="/assets/technical.svg" route="/detailed-survey/technical" />
-        <CategoryButton label="Data Security" icon="/assets/data-security.svg" route="/detailed-survey/data-security" />
-        <CategoryButton label="Access Control" icon="/assets/access-control.svg" route="/detailed-survey/access-control" />
-        <CategoryButton label="Threat Detection" icon="/assets/threat-detection.svg" route="/detailed-survey/threat-detection" />
-        <CategoryButton label="Training and Awareness" icon="/assets/training-awareness.svg" route="/detailed-survey/training-awareness" />
+        {categories.map((category, index) => (
+          <Link href={category.link} key={index}>
+            <div className={styles.category}>
+              <img src={category.img} alt={category.name} />
+              <span>{category.name}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      {/* ✅ Centered Second Row */}
+      <div className={styles.secondRow}>
+        {secondRowCategories.map((category, index) => (
+          <Link href={category.link} key={index}>
+            <div className={styles.category}>
+              <img src={category.img} alt={category.name} />
+              <span>{category.name}</span>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
-}
+};
+
+export default DetailedSurvey;

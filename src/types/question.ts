@@ -1,7 +1,7 @@
-export interface Question {
+  export interface Question {
     id: number;
     text: string;
-    options?: string[]; // Optional for dropdown or non-multiple-choice questions
-    type?: "dropdown" | "radio"; // ✅ Allowed values
+    options?: string[]; // Only for multiple-choice questions
+    type?: "radio" | "dropdown"; // ✅ Ensuring valid values
   }
   

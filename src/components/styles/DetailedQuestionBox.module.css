@@ -1,0 +1,183 @@
+/* ✅ Dynamic Question Box */
+.box {
+    background: rgba(255, 255, 255, 0.1); /* Glass-like effect */
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px; /* Increased padding */
+    width: 50%; /* Fixed width */
+    min-height: 250px; /* Minimum height */
+    color: white;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* ✅ Question styling */
+  .question {
+    font-size: 2.5rem; /* Larger font size for better readability */
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* ✅ Options Styling */
+  .options {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  
+  .options li {
+    margin-bottom: 15px; /* Spacing between options */
+  }
+  
+  .options label {
+    font-size: 1.5rem; /* Increased font size */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* ✅ Input field for "Other" option */
+  .otherInput {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  /* ✅ Navigation Buttons */
+  .navigation {
+    display: flex;
+    justify-content: space-between; /* Align buttons left and right */
+    margin-top: 20px;
+  }
+  
+  /* ✅ Previous & Next Buttons */
+  .prevButton,
+  .nextButton {
+    padding: 12px 30px;
+    font-size: 1.5rem;
+    background: white;
+    color: #003b6f;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .prevButton:hover,
+  .nextButton:hover {
+    transform: scale(1.05);
+    background: #0073e6;
+    color: white;
+  } 
+  
+  /* ✅ Searchable input field */
+  .searchInput {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  /* ✅ Dropdown for country selection */
+  .dropdown {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+  }
+  
+  /* ✅ Dropdown text */
+  .dropdown option {
+    background: #333;
+    color: white;
+  }
+  
+  /* ✅ Circle navigation for question numbers */
+  .questionNumbers {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+  
+  .circle.active {
+    background: white;
+    color: #003b6f;
+    transform: scale(1.1);
+  }
+  
+  .circle:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* ✅ Smooth Fade-in Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* ✅ Responsive Design */
+  @media (max-width: 768px) {
+    .box {
+      width: 90%;
+    }
+  
+    .question {
+      font-size: 1.8rem;
+    }
+  
+    .options label {
+      font-size: 1.2rem;
+    }
+  
+    .prevButton,
+    .nextButton {
+      padding: 10px 15px;
+      font-size: 1rem;
+    }
+  
+    .circle {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
+  

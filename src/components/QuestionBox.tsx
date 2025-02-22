@@ -6,18 +6,18 @@ import countryList from "@/utils/countries"; // Import country list
 interface Question {
   id: number;
   text: string;
-  options?: string[]; // Optional for non-multiple-choice questions
-  type?: "dropdown" | "radio"; // ✅ Restricting to allowed values
+  options?: string[];
+  type?: "dropdown" | "radio";
 }
-
 
 interface QuestionBoxProps {
   question: Question;
   currentQuestion: number;
   totalQuestions: number;
   onNext: () => void;
-  onPrev: (id: number) => void;
+  onPrev: (id: number) => void; // ✅ Allow `onPrev` to take an argument
 }
+
 
 const QuestionBox: React.FC<QuestionBoxProps> = ({
   question,
@@ -31,14 +31,12 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
   const [filteredCountries, setFilteredCountries] = useState(countryList);
   const router = useRouter();
 
-  // Load stored answer from localStorage when switching questions
   useEffect(() => {
     const storedAnswers = JSON.parse(localStorage.getItem("surveyResults") || "{}");
     setSelectedOption(storedAnswers[question.id] || "");
-    setOtherInput(storedAnswers[`${question.id}-other`] || ""); // Load "Other" input
+    setOtherInput(storedAnswers[`${question.id}-other`] || "");
   }, [question.id]);
 
-  // Save answer to localStorage
   const saveAnswer = () => {
     const storedAnswers = JSON.parse(localStorage.getItem("surveyResults") || "{}");
     storedAnswers[question.id] = selectedOption === "Other" ? otherInput : selectedOption;
@@ -53,9 +51,16 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
     onNext();
   };
 
+  const handlePrev = () => {
+    if (currentQuestion > 1) {
+      saveAnswer();
+      onPrev(currentQuestion - 1); // ✅ Pass the previous question number
+    }
+  };
+  
   const handleSubmit = () => {
     saveAnswer();
-    router.push("/results"); // Redirect to Results Page
+    router.push("/results");
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,10 +75,8 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
 
   return (
     <div className={styles.box}>
-      {/* Question Text */}
       <h2 className={styles.question}>{question.text}</h2>
 
-      {/* Country Dropdown for Last Question */}
       {question.type === "dropdown" ? (
         <>
           <input
@@ -96,7 +99,6 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
           </select>
         </>
       ) : (
-        // Multiple-choice options
         <ul className={styles.options}>
           {question.options?.map((option, index) => (
             <li key={index}>
@@ -111,7 +113,6 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
                 {option}
               </label>
 
-              {/* Show text input when "Other" is selected */}
               {selectedOption === "Other" && option === "Other" && (
                 <input
                   type="text"
@@ -127,17 +128,22 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
       )}
 
       {/* Navigation Buttons */}
-      <div className={styles.navigation}>
-        {currentQuestion < totalQuestions ? (
-          <button className={styles.nextButton} onClick={handleNext}>
-            Next Question
-          </button>
-        ) : (
-          <button className={styles.submitButton} onClick={handleSubmit}>
-            Submit
-          </button>
-        )}
-      </div>
+      {/* ✅ Navigation Buttons - Previous on Left, Next on Right */}
+<div className={styles.navigation}>
+
+  
+  {currentQuestion < totalQuestions ? (
+    <button className={styles.nextButton} onClick={handleNext}>
+      Next Question
+    </button>
+  ) : (
+    <button className={styles.submitButton} onClick={handleSubmit}>
+      Submit
+    </button>
+  )}
+</div>
+
+
     </div>
   );
 };
