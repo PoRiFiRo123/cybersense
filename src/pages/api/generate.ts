@@ -1,10 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
+import * as dotenv from 'dotenv'
 
-const apiKey = process.env.OPENAI_API_KEY;
+const apiKey = process.env.OPENAI_API_KEY || "kdsajfdf dfk";
 
 if (!apiKey) {
-  throw new Error("Missing OpenAI API Key. Check your .env.local file.");
+  console.error("❌ OpenAI API Key is missing. Ensure it's set in .env.local.");
+  throw new Error("Missing OpenAI API Key.");
 }
 
 const openai = new OpenAI({ apiKey });
@@ -27,9 +29,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       temperature: 0.7,
     });
 
-    return res.status(200).json({ generatedText: response.choices[0].message?.content || "No response generated." });
+    return res.status(200).json({ bot: response.choices[0].message?.content || "No response generated." });
   } catch (error) {
-    console.error("OpenAI API Error:", error);
+    console.error("❌ OpenAI API Error:", error);
     return res.status(500).json({ error: "Failed to generate text" });
   }
 }

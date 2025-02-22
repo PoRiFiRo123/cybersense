@@ -1,24 +1,24 @@
-/* ✅ Full-page background covering the entire screen */
+/* ✅ Full-screen background with NO SCROLLING */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* ✅ Ensures content starts below the header */
+  justify-content: center;
   height: 100vh;
   width: 100vw;
   background: url('/images/survey-background.png') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed; /* ✅ Keeps background fixed */
-  overflow: hidden; /* ✅ Prevents any scrolling */
-  padding-top: 90px; /* ✅ Space for header */
+  background-attachment: fixed;
+  overflow: hidden;
+  padding: 0;
 }
 
 /* ✅ Centered Fixed Prompt Container */
 .promptContainer {
   width: 60%;
-  height: auto; /* ✅ Ensures no scrolling inside */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  height: auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
@@ -26,8 +26,8 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: auto; /* ✅ Ensures center alignment */
-  overflow: hidden; /* ✅ Ensures no scrolling inside */
+  overflow: hidden;
+  position: relative;
 }
 
 /* ✅ Title */
@@ -40,18 +40,75 @@
   width: 100%;
 }
 
-/* ✅ AI Response (Fully Visible, No Scrolling) */
+/* ✅ Scrollable Text Display with Custom Themed Scrollbar */
+.messageContainer {
+  width: 100%;
+  max-height: 50vh;
+  overflow-y: auto;
+  text-align: left;
+  padding-right: 10px;
+}
+
+.messageContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.messageContainer::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.messageContainer::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #0099ff, #003366);
+  border-radius: 10px;
+}
+
+.messageContainer::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #00ccff, #004080);
+}
+
+/* ✅ AI Response Text */
 .response {
   font-size: 1.4rem;
   color: #eeeeee;
   text-align: left;
-  width: 100%;
-  white-space: pre-wrap; /* ✅ Ensures text wraps correctly */
-  overflow: hidden; /* ✅ Prevents any scrolling */
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
-/* ✅ Loading Message */
-.loading {
-  font-size: 1.4rem;
+/* ✅ Button Below the Container */
+.detailTestButton {
+  width: 40%; /* ✅ Now 40% of the container width */
+  margin-top: 20px;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
   color: white;
+  background: linear-gradient(to right, #007bff, #002f5e);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.detailTestButton:hover {
+  background: linear-gradient(to right, #0056b3, #001f3f);
+  box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* ✅ Button Wrapper to Center the Button */
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ✅ Prevents Scrollbars from Appearing Anywhere Else */
+html, body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
