@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import styles from "@/components/styles/DetailedQuestionBox.module.css";
 
@@ -9,54 +9,88 @@ interface Question {
   type?: "dropdown" | "radio";
 }
 
-interface QuestionBoxProps {
-  question: Question;
-  currentQuestion: number;
-  totalQuestions: number;
-  onNext: () => void;
-  onPrev: () => void;
+interface DetailedQuestionBoxProps {
+  questions: Question[];
+  onNextSection: () => void;
+  isLastSection: boolean;
 }
 
-const DetailedQuestionBox: React.FC<QuestionBoxProps> = ({
-  question,
-  currentQuestion,
-  totalQuestions,
-  onNext,
-  onPrev,
+const DetailedQuestionBox: React.FC<DetailedQuestionBoxProps> = ({
+  questions,
+  onNextSection,
+  isLastSection,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const router = useRouter();
+  const questionContainerRef = useRef<HTMLDivElement>(null);
+
+  // ✅ Scroll to top when changing sections
+  useEffect(() => {
+    if (questionContainerRef.current) {
+      questionContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [questions]);
+
+  const handleNextCategory = () => {
+    router.push("/detailed-survey/technical");
+  };
+
+  const handleSubmitSurvey = () => {
+    alert("Survey Submitted Successfully!"); // ✅ Replace this with API logic if needed
+    router.push("/thank-you"); // ✅ Redirect to a Thank You page or Results Page
+  };
 
   return (
-    <div className={styles.box}>
-      <h2 className={styles.question}>{question.text}</h2>
+    <div className={styles.questionBox}>
+      {/* ✅ Scrollable Question Container */}
+      <div ref={questionContainerRef} className={styles.questionContainer}>
+        {questions.map((question) => (
+          <div key={question.id} className={styles.questionItem}>
+            <h2 className={styles.questionText}>{question.text}</h2>
 
-      <ul className={styles.options}>
-        {question.options?.map((option, index) => (
-          <li key={index}>
-            <label>
-              <input
-                type="radio"
-                name={`question-${question.id}`}
-                value={option}
-                onChange={() => setSelectedOption(option)}
-                checked={selectedOption === option}
-              />
-              {option}
-            </label>
-          </li>
+            {question.type === "dropdown" ? (
+              <select className={styles.dropdown}>
+                <option value="">Select an option</option>
+                {question.options?.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              <ul className={styles.options}>
+                {question.options?.map((option, index) => (
+                  <li key={index}>
+                    <label>
+                      <input type="radio" name={`question-${question.id}`} value={option} />
+                      {option}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
 
-      {/* Navigation Buttons */}
+      {/* ✅ Navigation Buttons (Next Section, Submit Survey, Next Category) */}
       <div className={styles.navigation}>
-        {currentQuestion > 1 && (
-          <button className={styles.prevButton} onClick={onPrev}>
-            Previous Question
+        {!isLastSection && (
+          <button className={styles.nextButton} onClick={onNextSection}>
+            Next Section
           </button>
         )}
-        <button className={styles.nextButton} onClick={onNext}>
-          {currentQuestion < totalQuestions ? "Next Question" : "Submit"}
-        </button>
+
+        {isLastSection && (
+          <button className={styles.submitButton} onClick={handleSubmitSurvey}>
+            Submit Survey
+          </button>
+        )}
+
+        {isLastSection && (
+          <button className={styles.nextButton} onClick={handleNextCategory}>
+            Next Category
+          </button>
+        )}
       </div>
     </div>
   );

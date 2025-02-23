@@ -6,7 +6,7 @@ import styles from "@/styles/CategoryQuestionPage.module.css";
 import { questions } from "./questions";
 
 export default function GovernanceSurvey() {
-  const [currentSection, setCurrentSection] = useState<keyof typeof questions>("Policies and Frameworks");
+  const [currentSection, setCurrentSection] = useState<keyof typeof questions>("Network Security");
   const router = useRouter();
   const questionContainerRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ export default function GovernanceSurvey() {
     if (currentIndex < sectionKeys.length - 1) {
       setCurrentSection(sectionKeys[currentIndex + 1]);
     } else {
-      router.push("/detailed-survey/technical"); // ✅ Navigate to Technical
+      router.push("/detailed-survey/data-security"); // ✅ Navigate to Technical
     }
   };
 
@@ -33,7 +33,7 @@ export default function GovernanceSurvey() {
 
       {/* ✅ Governance Title as a Button */}
       <button className={styles.titleButton} onClick={() => router.push("/detailed-survey")}>
-        Governance and Policies
+        Technical
       </button>
 
       {/* ✅ Subcategory Navigation Buttons */}
@@ -53,7 +53,7 @@ export default function GovernanceSurvey() {
       <DetailedQuestionBox
         questions={questions[currentSection]}
         onNextSection={handleNextSection}
-        isLastSection={currentSection === "Incident Response"}
+        isLastSection={currentSection === "Application Security"}
       />
     </div>
   );
