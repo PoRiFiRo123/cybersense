@@ -11,7 +11,7 @@ const categories = [
 ];
 
 const secondRowCategories = [
-  { name: "Monitoring and Detection", link: "/detailed-survey/monitoring-and-detection", img: "/icons/monitoring-and-detection.svg" },
+  { name: "Monitoring and Detection", link: "/detailed-survey/monitoring", img: "/icons/monitoring.svg" },
   { name: "Training and Awareness", link: "/detailed-survey/training", img: "/icons/training.svg" },
 ];
 

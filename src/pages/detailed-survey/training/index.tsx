@@ -5,8 +5,8 @@ import Header from "@/components/Header";
 import styles from "@/styles/CategoryQuestionPage.module.css";
 import { questions } from "./questions";
 
-export default function TechnicalSurvey() {
-  const [currentSection, setCurrentSection] = useState<keyof typeof questions>("Network Security");
+export default function GovernanceSurvey() {
+  const [currentSection, setCurrentSection] = useState<keyof typeof questions>("Employee Training");
   const router = useRouter();
   const questionContainerRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ export default function TechnicalSurvey() {
     if (currentIndex < sectionKeys.length - 1) {
       setCurrentSection(sectionKeys[currentIndex + 1]);
     } else {
-      router.push("/detailed-survey/data-security"); // ✅ Navigate to Technical
+      router.push("/detailed-survey/"); // ✅ Navigate to Technical
     }
   };
 
@@ -33,7 +33,7 @@ export default function TechnicalSurvey() {
 
       {/* ✅ Governance Title as a Button */}
       <button className={styles.titleButton} onClick={() => router.push("/detailed-survey")}>
-        Technical
+        Training and Awareness
       </button>
 
       {/* ✅ Subcategory Navigation Buttons */}
@@ -53,7 +53,7 @@ export default function TechnicalSurvey() {
       <DetailedQuestionBox
         questions={questions[currentSection]}
         onNextSection={handleNextSection}
-        isLastSection={currentSection === "Application Security"}
+        isLastSection={currentSection === "Employee Training"}
       />
     </div>
   );

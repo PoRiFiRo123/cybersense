@@ -23,7 +23,7 @@ export default function GovernanceSurvey() {
     if (currentIndex < sectionKeys.length - 1) {
       setCurrentSection(sectionKeys[currentIndex + 1]);
     } else {
-      router.push("/detailed-survey/data-security"); // ✅ Navigate to Technical
+      router.push("/detailed-survey/training"); // ✅ Navigate to Technical
     }
   };
 
@@ -33,7 +33,7 @@ export default function GovernanceSurvey() {
 
       {/* ✅ Governance Title as a Button */}
       <button className={styles.titleButton} onClick={() => router.push("/detailed-survey")}>
-        Technical
+        Monitoring and Detection
       </button>
 
       {/* ✅ Subcategory Navigation Buttons */}

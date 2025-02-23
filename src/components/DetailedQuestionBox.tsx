@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
 import styles from "@/components/styles/DetailedQuestionBox.module.css";
 
 interface Question {
@@ -11,7 +10,7 @@ interface Question {
 
 interface DetailedQuestionBoxProps {
   questions: Question[];
-  onNextSection: () => void;
+  onNextSection: () => void; // ✅ Uses dynamic navigation logic
   isLastSection: boolean;
 }
 
@@ -20,7 +19,6 @@ const DetailedQuestionBox: React.FC<DetailedQuestionBoxProps> = ({
   onNextSection,
   isLastSection,
 }) => {
-  const router = useRouter();
   const questionContainerRef = useRef<HTMLDivElement>(null);
 
   // ✅ Scroll to top when changing sections
@@ -29,15 +27,6 @@ const DetailedQuestionBox: React.FC<DetailedQuestionBoxProps> = ({
       questionContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [questions]);
-
-  const handleNextCategory = () => {
-    router.push("/detailed-survey/technical");
-  };
-
-  const handleSubmitSurvey = () => {
-    alert("Survey Submitted Successfully!"); // ✅ Replace this with API logic if needed
-    router.push("/thank-you"); // ✅ Redirect to a Thank You page or Results Page
-  };
 
   return (
     <div className={styles.questionBox}>
@@ -81,15 +70,15 @@ const DetailedQuestionBox: React.FC<DetailedQuestionBoxProps> = ({
         )}
 
         {isLastSection && (
-          <button className={styles.submitButton} onClick={handleSubmitSurvey}>
-            Submit Survey
-          </button>
-        )}
+          <>
+            <button className={styles.submitButton} onClick={onNextSection}>
+              Submit Survey
+            </button>
 
-        {isLastSection && (
-          <button className={styles.nextButton} onClick={handleNextCategory}>
-            Next Category
-          </button>
+            <button className={styles.nextButton} onClick={onNextSection}>
+              Next Category
+            </button>
+          </>
         )}
       </div>
     </div>

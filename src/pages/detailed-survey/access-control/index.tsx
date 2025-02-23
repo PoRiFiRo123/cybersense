@@ -23,7 +23,7 @@ export default function GovernanceSurvey() {
     if (currentIndex < sectionKeys.length - 1) {
       setCurrentSection(sectionKeys[currentIndex + 1]);
     } else {
-      router.push("/detailed-survey/monitoring-and-detection"); // ✅ Navigate to Technical
+      router.push("/detailed-survey/monitoring"); // ✅ Navigate to Technical
     }
   };
 

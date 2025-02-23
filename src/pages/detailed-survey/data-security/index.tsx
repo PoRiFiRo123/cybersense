@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import styles from "@/styles/CategoryQuestionPage.module.css";
 import { questions } from "./questions";
 
-export default function GovernanceSurvey() {
+export default function DataSecuritySurvey() {
   const [currentSection, setCurrentSection] = useState<keyof typeof questions>("Encryption and Storage");
   const router = useRouter();
   const questionContainerRef = useRef<HTMLDivElement>(null);
