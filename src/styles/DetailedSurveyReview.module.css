@@ -9,6 +9,7 @@
     background-size: cover;
     background-attachment: fixed;
     overflow: hidden;
+    
   }
   
   /* ✅ Wrapper for all Content Below the Header */
@@ -30,12 +31,20 @@
   }
   
   /* ✅ Category & Subcategory Buttons */
-  .categoryButtons, .subCategoryButtons {
+  .categoryButtons {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+  .subCategoryButtons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
   }
   
   .activeButton, .inactiveButton {
@@ -102,7 +111,7 @@
   
   .answerText {
     font-size: 1.4rem;
-    color: #eeeeee;
+    color: #eeeeee; 
   }
   
   /* ✅ Generate Button */

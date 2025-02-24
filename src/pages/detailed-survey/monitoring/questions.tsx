@@ -1,4 +1,4 @@
-export const questions: Record<string, { id: number; text: string; options: string[]; type: "radio" | "dropdown"; }[]> = {
+ const questions: Record<string, { id: number; text: string; options: string[]; type: "radio" | "dropdown"; }[]> = {
     "Threat Detection":[
         { 
             "id": 1, 
@@ -226,3 +226,4 @@ export const questions: Record<string, { id: number; text: string; options: stri
     
   };
   
+  export default questions;

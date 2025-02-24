@@ -4,19 +4,41 @@ import Header from "@/components/Header";
 import styles from "@/styles/DetailedSurveyReview.module.css";
 import { allQuestions } from "@/utils/questions"; // ✅ Import all categories & questions
 
+// ✅ Define Types for Questions
+interface QuestionType {
+  id: string | number;
+  text: string;
+}
+
+// ✅ Define Exact Category Names as a Union Type
+type CategoryKeys =
+  | "Governance and Policies"
+  | "Technical"
+  | "Data Security"
+  | "Access Control"
+  | "Monitoring"
+  | "Training & Awareness";
+
+// ✅ Define Type for `allQuestions` Structure
+type QuestionsData = {
+  [key in CategoryKeys]: {
+    [subCategory: string]: QuestionType[];
+  };
+};
+
 export default function DetailedSurveyReview() {
   const router = useRouter();
 
   // ✅ Ensure there are categories available
-  const categoryKeys = Object.keys(allQuestions) as (keyof typeof allQuestions)[];
+  const categoryKeys = Object.keys(allQuestions) as CategoryKeys[];
   const firstCategory = categoryKeys.length > 0 ? categoryKeys[0] : null;
   const firstSubCategory =
     firstCategory && Object.keys(allQuestions[firstCategory]).length > 0
       ? Object.keys(allQuestions[firstCategory])[0]
       : null;
 
-  // ✅ State to Track Selections
-  const [selectedCategory, setSelectedCategory] = useState<keyof typeof allQuestions | null>(firstCategory);
+  // ✅ State to Track Selections (Fix Indexing Issue)
+  const [selectedCategory, setSelectedCategory] = useState<CategoryKeys | null>(firstCategory as CategoryKeys);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(firstSubCategory);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({}); // Stores selected answers
 
@@ -36,8 +58,8 @@ export default function DetailedSurveyReview() {
     }
   }, [selectedCategory]);
 
-  // ✅ Ensure Questions Exist Before Rendering
-  const questions = selectedCategory && selectedSubCategory
+  // ✅ Fix Indexing by Ensuring `selectedCategory` is a Known Key
+  const questions: QuestionType[] = selectedCategory && selectedSubCategory
     ? allQuestions[selectedCategory]?.[selectedSubCategory] || []
     : [];
 
@@ -78,7 +100,7 @@ export default function DetailedSurveyReview() {
         {/* ✅ Scrollable Container for Questions & Selected Answers */}
         {questions.length > 0 ? (
           <div className={styles.scrollableContainer}>
-            {questions.map((q) => {
+            {questions.map((q: QuestionType) => {
               const selectedOption = selectedAnswers[q.id] || "Nil"; // ✅ Default to "Nil" if no answer
               return (
                 <div key={q.id} className={styles.questionItem}>

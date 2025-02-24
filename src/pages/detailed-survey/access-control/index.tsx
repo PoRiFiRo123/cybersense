@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import DetailedQuestionBox from "@/components/DetailedQuestionBox";
 import Header from "@/components/Header";
 import styles from "@/styles/CategoryQuestionPage.module.css";
-import { questions } from "./questions";
+import questions  from "./questions";
 
 export default function GovernanceSurvey() {
   const [currentSection, setCurrentSection] = useState<keyof typeof questions>("Identity Management");

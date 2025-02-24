@@ -79,13 +79,13 @@ const QuestionBox: React.FC<QuestionBoxProps> = ({
 
       {question.type === "dropdown" ? (
         <>
-          <input
+          {/* <input
             type="text"
             className={styles.searchInput}
             placeholder="Type to search country..."
             value={selectedOption}
             onChange={handleSearch}
-          />
+          /> */}
           <select
             className={styles.dropdown}
             onChange={(e) => setSelectedOption(e.target.value)}
