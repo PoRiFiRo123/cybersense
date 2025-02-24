@@ -6,8 +6,40 @@ import { allQuestions } from "@/utils/questions"; // ✅ Import all categories &
 
 export default function DetailedSurveyReview() {
   const router = useRouter();
-  const [selectedCategory, setSelectedCategory] = useState<keyof typeof allQuestions | null>(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+
+  // ✅ Ensure there are categories available
+  const categoryKeys = Object.keys(allQuestions) as (keyof typeof allQuestions)[];
+  const firstCategory = categoryKeys.length > 0 ? categoryKeys[0] : null;
+  const firstSubCategory =
+    firstCategory && Object.keys(allQuestions[firstCategory]).length > 0
+      ? Object.keys(allQuestions[firstCategory])[0]
+      : null;
+
+  // ✅ State to Track Selections
+  const [selectedCategory, setSelectedCategory] = useState<keyof typeof allQuestions | null>(firstCategory);
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(firstSubCategory);
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({}); // Stores selected answers
+
+  // ✅ Fetch Selected Answers from localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedAnswers = JSON.parse(localStorage.getItem("surveyResults") || "{}");
+      setSelectedAnswers(storedAnswers);
+    }
+  }, []);
+
+  // ✅ Update Subcategory when Category Changes
+  useEffect(() => {
+    if (selectedCategory && allQuestions[selectedCategory]) {
+      const firstSub = Object.keys(allQuestions[selectedCategory])[0];
+      setSelectedSubCategory(firstSub);
+    }
+  }, [selectedCategory]);
+
+  // ✅ Ensure Questions Exist Before Rendering
+  const questions = selectedCategory && selectedSubCategory
+    ? allQuestions[selectedCategory]?.[selectedSubCategory] || []
+    : [];
 
   return (
     <div className={styles.container}>
@@ -17,14 +49,11 @@ export default function DetailedSurveyReview() {
       <div className={styles.contentWrapper}>
         {/* ✅ Category Selection */}
         <div className={styles.categoryButtons}>
-          {Object.keys(allQuestions).map((category) => (
+          {categoryKeys.map((category) => (
             <button
               key={category}
               className={selectedCategory === category ? styles.activeButton : styles.inactiveButton}
-              onClick={() => {
-                setSelectedCategory(category as keyof typeof allQuestions);
-                setSelectedSubCategory(null);
-              }}
+              onClick={() => setSelectedCategory(category)}
             >
               {category}
             </button>
@@ -34,7 +63,7 @@ export default function DetailedSurveyReview() {
         {/* ✅ Subcategory Selection */}
         {selectedCategory && (
           <div className={styles.subCategoryButtons}>
-            {Object.keys(allQuestions[selectedCategory] as Record<string, unknown>).map((sub) => (
+            {Object.keys(allQuestions[selectedCategory]).map((sub) => (
               <button
                 key={sub}
                 className={selectedSubCategory === sub ? styles.activeButton : styles.inactiveButton}
@@ -46,17 +75,21 @@ export default function DetailedSurveyReview() {
           </div>
         )}
 
-        {/* ✅ Scrollable Container for Questions */}
-        {selectedCategory && selectedSubCategory && (
+        {/* ✅ Scrollable Container for Questions & Selected Answers */}
+        {questions.length > 0 ? (
           <div className={styles.scrollableContainer}>
-            {(allQuestions[selectedCategory] as Record<string, { id: number; text: string; options: string[]; type: string }[]>)[
-              selectedSubCategory
-            ]?.map((q) => (
-              <div key={q.id} className={styles.questionItem}>
-                <h2 className={styles.questionText}>{q.text}</h2>
-              </div>
-            ))}
+            {questions.map((q) => {
+              const selectedOption = selectedAnswers[q.id] || "Nil"; // ✅ Default to "Nil" if no answer
+              return (
+                <div key={q.id} className={styles.questionItem}>
+                  <h2 className={styles.questionText}>{q.text}</h2>
+                  <p className={styles.selectedOption}>Selected: <strong>{selectedOption}</strong></p>
+                </div>
+              );
+            })}
           </div>
+        ) : (
+          <p className={styles.noQuestions}>No questions available.</p>
         )}
 
         {/* ✅ Generate Button */}
