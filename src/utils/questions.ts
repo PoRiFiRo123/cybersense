@@ -1,9 +1,9 @@
-import { questions as governanceQuestions } from ".././pages/detailed-survey/governance/questions";
-import { questions as technicalQuestions } from ".././pages/detailed-survey/technical/questions";
-import { questions as dataSecurityQuestions } from ".././pages/detailed-survey/data-security/questions";
-import { questions as accessControlQuestions } from ".././pages/detailed-survey/access-control/questions";
-import { questions as monitoringQuestions } from ".././pages/detailed-survey/monitoring/questions";
-import { questions as trainingQuestions } from ".././pages/detailed-survey/training/questions";
+import governanceQuestions  from ".././pages/detailed-survey/governance/index";
+import technicalQuestions  from ".././pages/detailed-survey/technical/index";
+import dataSecurityQuestions  from ".././pages/detailed-survey/data-security/index";
+import accessControlQuestions  from ".././pages/detailed-survey/access-control/index";
+import monitoringQuestions  from ".././pages/detailed-survey/monitoring/index";
+import trainingQuestions  from ".././pages/detailed-survey/training/index";
 
 export const allQuestions = {
   "Governance and Policies": governanceQuestions,
