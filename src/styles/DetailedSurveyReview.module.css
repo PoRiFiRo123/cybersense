@@ -5,7 +5,7 @@
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background: url('/images/survey-background.png') no-repeat center center;
+    background: url('/images/survey-background.svg') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     overflow: hidden;
