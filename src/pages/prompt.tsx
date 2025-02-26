@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import styles from "@/styles/Prompt.module.css";
+import ReactMarkdown from "react-markdown";
 
 export default function PromptPage() {
   const router = useRouter();
@@ -60,7 +61,7 @@ export default function PromptPage() {
           {loading ? (
             <p className={styles.loading}>Loading...</p>
           ) : (
-            <p className={styles.response}>{generatedText.substring(0, typingIndex)}</p>
+            <p className={styles.response}><ReactMarkdown>{generatedText.substring(0, typingIndex)}</ReactMarkdown></p>
           )}
         </div>
       </div>
